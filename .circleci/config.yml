@@ -1,9 +1,7 @@
-orbs:
-  win: circleci/windows@1.0.0
-
 jobs:
-  build-windows:
-    executor: win/vs2019
+  build-macos:
+    macos:
+      xcode: 11.3.0
     steps:
-      - checkout
-      - run: Write-Host 'Hello, Windows'
+      - checkout # check out the code in the project directory
+      - run: echo "hello world" # run the `echo` command
