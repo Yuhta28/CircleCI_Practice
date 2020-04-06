@@ -1,5 +1,5 @@
 jobs:
-  build-macos:
+  build:
     macos:
       xcode: 11.3.0
     steps:
