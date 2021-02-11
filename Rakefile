@@ -1,24 +1,24 @@
 namespace :mysql do
     task :default => [:create, :migrate, :drop]
   
-    ENV_MYPASSWORD = ""
-    ENV_MYDBNAME = "yuta-db"
+    MYSQL_ROOT_PASSWORD = ""
+    MYSQL_DATABASE = "yuta-db"
     def get_mysql_dbname()
       if DBNAME && !DBNAME.empty? then
         return DBNAME
-      elsif ENV.include?(ENV_MYDBNAME) then
-        return ENV[ENV_MYDBNAME]
+      elsif ENV.include?(MYSQL_DATABASE) then
+        return ENV[MYSQL_DATABASE]
       else
         puts "input database name"
         dbname = STDIN.gets
-        ENV[ENV_MYDBNAME] = dbname.chop
-        return ENV[ENV_MYDBNAME]
+        ENV[MYSQL_DATABASE] = dbname.chop
+        return ENV[MYSQL_DATABASE]
       end
     end
   
-    ENV[ENV_MYPASSWORD] = PASSWORD
+    ENV[MYSQL_ROOT_PASSWORD] = PASSWORD
     def get_mysql_password()
-      pass = ENV[ENV_MYPASSWORD]
+      pass = ENV[MYSQL_ROOT_PASSWORD]
       if pass && !pass.empty? then
         return pass
       else
@@ -26,8 +26,8 @@ namespace :mysql do
         system "stty -echo"
         pass = STDIN.gets
         system "stty echo"
-        ENV[ENV_MYPASSWORD] =  pass.chop
-        return ENV[ENV_MYPASSWORD]
+        ENV[MYSQL_ROOT_PASSWORD] =  pass.chop
+        return ENV[MYSQL_ROOT_PASSWORD]
       end
     end
   
