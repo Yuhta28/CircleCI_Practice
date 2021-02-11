@@ -1,8 +1,36 @@
+executors:
+  default: #デフォルトのDockerイメージ
+    docker:
+      - image: cimg/node:lts
+    working_directory: ~/repo
+
 version: 2.1
 jobs:
-  build:
-    docker:
-      - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
+  setup:
+    executor: default
     steps:
       - checkout # check out the code in the project directory
-      - run: echo "hello world" # run the `echo` command
+      - run:
+          name: Nodeモジュールのインストール
+          command: yarn install
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - node_modules
+  test_jest:
+    executor: default
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Jestを実行
+          command: npx jest --ci --maxWorkers=2
+workflows:
+  version: 2
+  build_test:
+    jobs:
+      - setup
+      - test_jest:
+          requires:
+            - setup
