@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: 152231080651.dkr.ecr.ap-northeast-1.amazonaws.com/circleci-node-aws-cli
+    - image: $AWS_ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/circleci-node-aws-cli
       aws_auth:
         aws_access_key_id: $AWS_ACCESS_KEY_ID
         aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
